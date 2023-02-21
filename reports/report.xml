@@ -1,0 +1,12 @@
+<?xml version ="1.0" encoding="UTF-8"?>
+<odoo>
+    <report
+        id="report_invoice_order"
+        string="Order receipt"
+        model="bar_app.invoice_model"
+        report_type="qweb-pdf" 
+        name="bar_app.report_invoice"
+        file="bar_app.report_invoice"
+        />
+    
+</odoo>

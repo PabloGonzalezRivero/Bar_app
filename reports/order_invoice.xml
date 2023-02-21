@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <style>
+                        table, th, td {
+                          border:1px solid black;
+                        }
+                        </style>
+                    <h2>Invoice</h2>
+                    Ref:  <t t-esc="doc.ref"/>
+                    <br/>
+                    Date:  <t t-esc="doc.date"/>
+                    <br/>
+                    Base cost:  <t t-esc="doc.base"/>
+                    <br/>
+                    VAT:  <t t-esc="doc.VAT"/>
+                    <br/>
+                    <br/>
+                    <table style="width:100%">
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                        </tr>
+                        <t t-foreach="doc.products" t-as="prod">
+                            <tr>
+                                <td><t t-esc="prod.product.name"></t></td>
+                                <td><t t-esc="prod.quantity"></t></td>
+                            </tr>
+                            
+                            
+                        </t>
+
+
+                    </table>
+                    <br/>
+                    Total cost:  <t t-esc="doc.tcost"/> € 
+                </t>
+            </t>
+        </t>
+
+    </template>
+
+
+
+</odoo>

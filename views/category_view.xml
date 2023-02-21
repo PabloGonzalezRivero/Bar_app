@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bar_app.category_model_form">
+            <field name="name">Category form</field>
+            <field name="model">bar_app.category_model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="id"/>
+                            <field name="name"/>
+                            <field name="complete_name"/>
+                            <field name="parent_id"/>
+                            <field name="description"/>
+                            <field name="products">
+                                <tree>
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <field name="price"/>
+                                </tree>
+
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="bar_app.category_model_tree">
+            <field name="name">Tree Tasks</field>
+            <field name="model">bar_app.category_model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name" />
+                    <field name="complete_name"/>
+                    <field name="parent_id"/>
+                    <field name="description" />
+                    <field name="products"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="bar_app.action_window_categories_list">
+            <field name="name">Category List</field>
+            <field name="res_model">bar_app.category_model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

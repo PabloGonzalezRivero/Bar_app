@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bar_app.table_model_form">
+            <field name="name">Table form</field>
+            <field name="model">bar_app.table_model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="changeStateToInProgress" type="object" string="change order state to in progress" class="oe_highlight" />
+                        <button name="changeStateToDraft" type="object" string="change order state to in draft" class="oe_highlight" states="O"/>
+                        <button name="changeStateToConfirm" type="object" string="change order state to confirmed" class="oe_highlight" states="D"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                            <group>
+                                <field name="num" attrs="{'readonly':[('state','=','C')]}" />
+                                <field name="pax" attrs="{'readonly':[('state','=','C')]}" />
+                                <field name="active" invisible="True"/>
+                                <field name="client" attrs="{'readonly':[('state','=','C')]}" />
+                                <field name ="waiter" attrs="{'readonly':[('state','=','C')]}" />
+                                <field name="currency_id" attrs="{'readonly':[('state','=','C')]}" />
+                                <field name="ordersdone" invisible="True"/>
+                                <field name="tcost" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': True}"/>
+                                <field name="lineOrders" attrs="{'readonly':[('state','=','C')]}">
+                                    <tree>
+                                        <field name="id" decoration-danger="delivered == False"/>
+                                        <field name="product" decoration-danger="delivered == False"/>
+                                        <field name="quantity" decoration-danger="delivered == False"/>
+                                        <field name="observation" decoration-danger="delivered == False"/>
+                                        <field name="done" decoration-danger="delivered == False"/>
+                                        <field name="delivered" decoration-danger="delivered == False"/>
+                                        <field name="getFrom" decoration-danger="delivered == False"/>
+                                    </tree>
+
+                                </field>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="bar_app.table_model_tree">
+            <field name="name">Tree Tasks</field>
+            <field name="model">bar_app.table_model</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="ordersdone == False">
+                            <field name="num" />
+                            <field name ="pax" />
+                            <field name="active" invisible="True"/>
+                            <field name="waiter" />
+                            <field name="lineOrders" />
+                            <field name="currency_id" invisible="True"/>
+                            <field name="ordersdone" invisible="True"/>
+                            <field name="tcost" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                </tree>
+            </field>
+        </record>
+        
+
+        <record model="ir.actions.act_window" id="bar_app.action_window_tables_list">
+            <field name="name">Table List</field>
+            <field name="res_model">bar_app.table_model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

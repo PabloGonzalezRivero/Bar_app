@@ -1,0 +1,85 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bar_app.invoice_model_form">
+            <field name="name">Invoice form</field>
+            <field name="model">bar_app.invoice_model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="changeStateToDraft" type="object" string="change order state to draft" class="oe_highlight" states="C"/>
+                        <button name="changeStateToConfirmed" type="object" string="change order state to confirmed" class="oe_highlight" states="D"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                            <group>
+                                <field name="ref" />
+                                <field name="date" attrs="{'readonly': True}"/>
+                                <field name="base" attrs="{'readonly': True}"/>
+                                <field name ="VAT" attrs="{'readonly':[('state','=','C')]}"/>
+                                <field name="tcost" attrs="{'readonly': True}"/>
+                                <field name="products" attrs="{'readonly':[('state','=','C')]}">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="product"/>
+                                        <field name="quantity"/>
+                                    </tree>
+
+                                </field>
+                                <field name="client" attrs="{'readonly':[('state','=','C')]}"/>                    
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="bar_app.invoice_model_tree">
+            <field name="name">Tree Tasks</field>
+            <field name="model">bar_app.invoice_model</field>
+            <field name="arch" type="xml">
+                <tree>
+                            <field name="ref" />
+                            <field name="date" attrs="{'readonly': True}"/>
+                            <field name="base" attrs="{'readonly': True}"/>
+                            <field name ="VAT" />
+                            <field name="currency_id" invisible="True"/>
+                            <field name="tcost" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': True}"/>
+                            <field name="client" /> 
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="bar_app.invoice_model_graph">
+            <field name="name">Invoice graph</field>
+            <field name="model">bar_app.invoice_model</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="date" type="row"/>
+                    <field name="tcost" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="bar_app.invoice_model_pivot">
+            <field name="name">Invoice Pivot</field>
+            <field name="model">bar_app.invoice_model</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot invoice">
+
+                    
+                   
+                    <field name="ref"/>
+                   
+                    <field name="date"/>
+                   
+                    <field name="tcost" />
+                   
+                    <field name="client" />
+
+                   
+                    </pivot>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="bar_app.action_window_invoices_list">
+            <field name="name">Invoice List</field>
+            <field name="res_model">bar_app.invoice_model</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+    </data>
+</odoo>

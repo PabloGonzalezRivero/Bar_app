@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <!-- Top menu item -->
+        <menuitem name="Bar App" id="bar_app.menu_root" groups="bar_group_adm,bar_group_waiter,bar_group_cooker,bar_group_barman" web_icon="bar_app,static/description/icon.png"/>
+
+        <!-- menu categories -->
+
+        <menuitem name="Products" id="bar_app.menu_products" parent="bar_app.menu_root" groups="bar_group_adm,bar_group_waiter,bar_group_cooker,bar_group_barman"/>
+        <menuitem name="Categories" id="bar_app.menu_categories" parent="bar_app.menu_root" groups="bar_group_adm,bar_group_waiter,bar_group_cooker,bar_group_barman"/>
+        <menuitem name="Ingredients" id="bar_app.menu_ingredients" parent="bar_app.menu_root" groups="bar_group_adm,bar_group_waiter,bar_group_cooker,bar_group_barman"/>
+        <menuitem name="Tables" id="bar_app.menu_tables" parent="bar_app.menu_root" groups="bar_group_adm,bar_group_waiter" />
+        <menuitem name="Invoices" id="bar_app.menu_invoices" parent="bar_app.menu_root" groups="bar_group_adm,bar_group_waiter" />
+        <menuitem name="LineOrders" id="bar_app.menu_orders" parent="bar_app.menu_root" groups="bar_group_adm,bar_group_cooker,bar_group_barman,bar_group_waiter" />
+
+        <!-- actions -->
+
+        <menuitem name="List Products" id="bar_app.menu_products_list" parent="bar_app.menu_products"
+            action="bar_app.action_window_products_list" groups="bar_group_adm,bar_group_waiter,bar_group_cooker,bar_group_barman"/>
+        <menuitem name="List Categories" id="bar_app.menu_categories_list" parent="bar_app.menu_categories"
+            action="bar_app.action_window_categories_list" groups="bar_group_adm,bar_group_waiter,bar_group_cooker,bar_group_barman"/>
+        <menuitem name="List Ingredients" id="bar_app.menu_ingredients_list" parent="bar_app.menu_ingredients"
+            action="bar_app.action_window_ingredients_list" groups="bar_group_adm,bar_group_waiter,bar_group_cooker,bar_group_barman"/>
+        <menuitem name="List Tables" id="bar_app.menu_tables_list" parent="bar_app.menu_tables"
+            action="bar_app.action_window_tables_list" groups="bar_group_adm,bar_group_waiter"/>
+        <menuitem name="List Invoices" id="bar_app.menu_invoices_list" parent="bar_app.menu_invoices"
+            action="bar_app.action_window_invoices_list" groups="bar_group_adm,bar_group_waiter"/>
+        <menuitem name="List Orders" id="bar_app.menu_orders_list" parent="bar_app.menu_orders"
+            action="bar_app.action_window_orders_list" groups="bar_group_adm"/>
+        <menuitem name="List Orders Kitchen" id="bar_app.menu_orders_list_kitchen" parent="bar_app.menu_orders"
+            action="bar_app.action_window_orders_list_kitchen" groups="bar_group_adm,bar_group_cooker"/>
+        <menuitem name="List Orders Bar" id="bar_app.menu_orders_list_bar" parent="bar_app.menu_orders"
+            action="bar_app.action_window_orders_list_bar" groups="bar_group_adm,bar_group_barman"/>
+        <menuitem name="List Orders Waiter" id="bar_app.menu_orders_list_waiter" parent="bar_app.menu_orders"
+            action="bar_app.action_window_orders_list_waiter" groups="bar_group_adm,bar_group_waiter"/>
+
+    </data>
+</odoo>

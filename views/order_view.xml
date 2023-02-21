@@ -1,0 +1,155 @@
+<odoo>
+    <data>
+    <record model="ir.ui.view" id="bar_app.order_model_form">
+        <field name="name">Order form</field>
+        <field name="model">bar_app.order_model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product" />
+                        <field name="quantity" />
+                        <field name="price" />
+                        <field name="done" invisible="True" />
+                        <field name="delivered" invisible="True" />
+                        <field name="observation" />
+                        <field name="getFrom" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="bar_app.order_model_tree">
+        <field name="name">Tree Orders</field>
+        <field name="model">bar_app.order_model</field>
+        
+        <field name="arch" type="xml">
+            <tree> 
+                <field name="product"  />
+                <field name="quantity" />
+                <field name="price" />
+                <field name="done" />
+                <field name="delivered" />
+                <field name="observation" />
+                <field name="getFrom"  />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="bar_app.action_window_orders_list">
+        <field name="name">Order List</field>
+        <field name="res_model">bar_app.order_model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+              (0, 0, {'view_mode': 'tree', 'view_id': ref('bar_app.order_model_tree')}),
+              (0, 0, {'view_mode': 'form', 'view_id': ref('bar_app.order_model_form')})]"/>
+    </record>
+
+        <record id="bar_app.order_model_form_waiter" model="ir.ui.view">
+            <field name="name">Order Form inherit Waiter</field>
+            <field name="model">bar_app.order_model</field>
+            <field name="inherit_id" ref="bar_app.order_model_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet" position="before">
+                    <header>
+                        <button name="changeStateToDelivered" type="object" string="change product to delivered" class="oe_highlight" />
+                    </header>
+                </xpath>
+            </field>
+        </record>
+        <record id="bar_app.order_model_form_kitchen" model="ir.ui.view">
+            <field name="name">Order Form inherit Kitchen</field>
+            <field name="model">bar_app.order_model</field>
+            <field name="inherit_id" ref="bar_app.order_model_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet" position="before">
+                    <header>
+                        <button name="changeStateToDoneKitchen" type="object"
+                            string="change product to done" class="oe_highlight" />
+                    </header>
+                </xpath>
+            </field>
+        </record>
+        <record id="bar_app.order_model_form_bar" model="ir.ui.view">
+            <field name="name">Order Form inherit Bar</field>
+            <field name="model">bar_app.order_model</field>
+            <field name="inherit_id" ref="bar_app.order_model_form" />
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet" position="before">
+                    <header>
+                        <button name="changeStateToDoneBar" type="object"
+                            string="change product to done" class="oe_highlight" />
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="bar_app.order_model_tree_waiter">
+            <field name="name">Tree Orders</field>
+            <field name="model">bar_app.order_model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product" decoration-danger="delivered == False" />
+                    <field name="quantity" decoration-danger="delivered == False" />
+                    <field name="price" decoration-danger="delivered == False" />
+                    <field name="numTable" decoration-danger="delivered == False"/>
+                    <field name="done" invisible="True" />
+                    <field name="delivered" invisible="True" />
+                    <field name="observation" decoration-danger="delivered == False" />
+                    <field name="getFrom" decoration-danger="delivered == False" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="bar_app.action_window_orders_list_waiter">
+            <field name="name">Order List Waiter</field>
+            <field name="res_model">bar_app.order_model</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('done','=',True),('delivered','=',False)]</field>
+            
+            <field name="view_ids" eval="[(5, 0, 0),
+              (0, 0, {'view_mode': 'tree', 'view_id': ref('bar_app.order_model_tree_waiter')}),
+              (0, 0, {'view_mode': 'form', 'view_id': ref('bar_app.order_model_form_waiter')})]"/>
+            
+        </record>
+        <record model="ir.actions.act_window" id="bar_app.action_window_orders_list_kitchen">
+            <field name="name">Order List Cook</field>
+            <field name="res_model">bar_app.order_model</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('getFrom','=','K'),('done','=',False)]</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+              (0, 0, {'view_mode': 'tree', 'view_id': ref('bar_app.order_model_tree_bar')}),
+              (0, 0, {'view_mode': 'form', 'view_id': ref('bar_app.order_model_form_kitchen')})]"/>
+            
+        </record>
+
+        <record model="ir.ui.view" id="bar_app.order_model_tree_bar">
+            <field name="name">Tree Orders</field>
+            <field name="model">bar_app.order_model</field>
+            <field name="arch" type="xml">
+                <tree> 
+                    <field name="product" decoration-danger="done == False" />
+                    <field name="quantity"  decoration-danger="done == False"/>
+                    <field name="price" decoration-danger="done == False" />
+                    <field name="numTable" decoration-danger="done == False" />
+                    <field name="done"  invisible="True"/>
+                    <field name="observation" decoration-danger="done == False"/>
+                    <field name="getFrom" decoration-danger="done == False"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="bar_app.action_window_orders_list_bar">
+            <field name="name">Order List Bar</field>
+            <field name="res_model">bar_app.order_model</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('getFrom','=','B'),('done','=',False)]</field>
+            
+            <field name="view_ids" eval="[(5, 0, 0),
+              (0, 0, {'view_mode': 'tree', 'view_id': ref('bar_app.order_model_tree_bar')}),
+              (0, 0, {'view_mode': 'form', 'view_id': ref('bar_app.order_model_form_bar')})]"/>
+        </record>
+        
+    </data>
+</odoo>

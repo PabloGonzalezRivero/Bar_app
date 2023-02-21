@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bar_app.ingredient_model_form">
+            <field name="name">Product form</field>
+            <field name="model">bar_app.ingredient_model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        
+                    </header>
+                    <sheet>
+                            <group>
+                                <field name="id" />
+                                <field name="name" />
+                                <field name="observation" />
+                                <field name="products">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="name"/>
+                                        <field name="price"/>
+                                    </tree>
+
+                                </field>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="bar_app.ingredient_model_tree">
+            <field name="name">Tree Tasks</field>
+            <field name="model">bar_app.ingredient_model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id" />
+                    <field name="name" />
+                    <field name ="observation" />
+                    <field name="products" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="bar_app.action_window_ingredients_list">
+            <field name="name">Ingredient List</field>
+            <field name="res_model">bar_app.ingredient_model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
